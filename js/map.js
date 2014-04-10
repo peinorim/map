@@ -22,8 +22,12 @@ $(function() {
         init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ddd');
     });
 
-    $(".objet, .terrain").click(function() {
-        $("#eraser, #pencil").removeClass('active');
+    $(".terrain").click(function() {
+        $("#eraser, #pencil, .objet").removeClass('active');
+    });
+
+    $(".objet").click(function() {
+        $("#eraser, #pencil, .terrain").removeClass('active');
     });
 
     $("#eraser, #pencil").click(function() {
@@ -70,12 +74,18 @@ $(function() {
             if (!canvas.isDrawing) {
                 return;
             }
-            var diametre = parseInt($("#diametre").val());
+            if ($(".objet").hasClass('active')) {
+                var terrain = $(".objet.active").find("img").attr("src");
+                var diametre = $(".objet.active").find("img").attr("width");
+                var cote = $(".objet.active").find("img").attr("height");
+            } else {
+                var diametre = parseInt($("#diametre").val());
+                var terrain = $(".terrain.active").find("img").attr("src");
+            }
             if (isNaN(diametre)) {
                 diametre = 50;
             }
             var carre = $("#carre").hasClass('active');
-            var terrain = $(".terrain.active").find("img").attr("src");
             if (typeof terrain === 'undefined') {
                 return null;
             }
@@ -84,11 +94,15 @@ $(function() {
             var img = new Image();
             var ctx = canvas.context;
             img.src = terrain;
-            pFill = ctx.createPattern(img, "repeat");
-            ctx.fillStyle = pFill;
-            if (carre === true) {
+            if (carre === true && !$(".objet").hasClass('active')) {
+                pFill = ctx.createPattern(img, "repeat");
+                ctx.fillStyle = pFill;
                 ctx.fillRect(x, y, diametre, diametre);
+            } else if ($(".objet").hasClass('active')) {
+                ctx.drawImage(img, x, y, diametre, cote);
             } else {
+                pFill = ctx.createPattern(img, "repeat");
+                ctx.fillStyle = pFill;
                 ctx.fillCircle(x, y, diametre / 2, pFill);
             }
         }
@@ -142,11 +156,7 @@ $(function() {
                 ctx.fillCircle(x, y, diametre / 2, fillColor);
             }
         }
-        
-        canvas.node.onmouseover = function(e) {
-            //$(this).css('cursor','url(../img/textures/grass.png), auto');
-        };
-        
+
         canvas.node.onmousemove = function(e) {
             var eraser = false;
             var pencil = false;
@@ -154,6 +164,10 @@ $(function() {
                 eraser = true;
             } else if ($("#pencil").hasClass('active')) {
                 pencil = true;
+            }
+
+            if ($(".objet").hasClass('active')) {
+                return;
             }
 
             if (eraser === true) {

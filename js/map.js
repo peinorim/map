@@ -76,8 +76,8 @@ $(function() {
             }
             var carre = $("#carre").hasClass('active');
             var terrain = $(".terrain.active").find("img").attr("src");
-            if (terrain === "") {
-                return;
+            if (typeof terrain === 'undefined') {
+                return null;
             }
             var x = e.pageX - $("#canvas").position().left - 15;
             var y = e.pageY - $("#canvas").position().top;
@@ -142,7 +142,11 @@ $(function() {
                 ctx.fillCircle(x, y, diametre / 2, fillColor);
             }
         }
-
+        
+        canvas.node.onmouseover = function(e) {
+            //$(this).css('cursor','url(../img/textures/grass.png), auto');
+        };
+        
         canvas.node.onmousemove = function(e) {
             var eraser = false;
             var pencil = false;

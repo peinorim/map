@@ -6,9 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/colorpicker.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/colorpicker.js"></script>
         <script type="text/javascript" src="js/map.js"></script>
     </head>
     <body>
@@ -34,11 +36,15 @@
                                 <input type="radio" name="types"><i class="fa fa-circle-o"></i>
                             </label>
                         </div>
-                        <input type="number" class="form-control" id="diametre" value="50" style="width:50px;">
+                        <input type="number" class="form-control" id="diametre" value="50" style="width:75px;">
+                        <input type="text" class="form-control" id="colorpickerField1" value="000000" style="width:100px;">
                         <span class="divider-vertical"></span>
                         <div class="btn-group" data-toggle="buttons">
+                            <label id="pencil" class="btn btn-default">
+                                <input type="radio" name="brushes"><i class="fa fa-pencil fa-lg"></i>
+                            </label>
                             <label id="eraser" class="btn btn-danger">
-                                <i class="fa fa-eraser fa-lg"></i> Gomme
+                                <input type="radio" name="brushes"><i class="fa fa-eraser fa-lg"></i>
                             </label>
                         </div>
                         <label id="reset" class="btn btn-danger pull-right">

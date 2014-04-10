@@ -1,13 +1,35 @@
 $(function() {
-    // Creates a new canvas element and appends it as a child
-    // to the parent element, and returns the reference to
-    // the newly created canvas element
 
     var container = document.getElementById('canvas');
+
+    $('#colorpickerField1').ColorPicker({
+        onSubmit: function(hsb, hex, rgb, el) {
+            $(el).val(hex);
+            $(el).ColorPickerHide();
+        },
+        onBeforeShow: function() {
+            $(this).ColorPickerSetColor(this.value);
+        },
+        onChange: function(hsb, hex, rgb) {
+            $('#colorpickerField1').val(hex);
+        }
+    }).bind('keyup', function() {
+        $(this).ColorPickerSetColor(this.value);
+    });
 
     $("#reset").click(function() {
         $("#canvas").children().remove();
         init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ddd');
+    });
+
+    $(".objet, .terrain").click(function() {
+        $("#eraser, #pencil").removeClass('active');
+    });
+
+    $("#eraser, #pencil").click(function() {
+        $(".objet, .terrain").each(function() {
+            $(this).removeClass('active');
+        });
     });
 
 
@@ -48,13 +70,13 @@ $(function() {
             if (!canvas.isDrawing) {
                 return;
             }
-            var cote = parseInt($("#diametre").val());
-            if (isNaN(cote)) {
-                cote = 50;
+            var diametre = parseInt($("#diametre").val());
+            if (isNaN(diametre)) {
+                diametre = 50;
             }
             var carre = $("#carre").hasClass('active');
             var terrain = $(".terrain.active").find("img").attr("src");
-            if (terrain === ''){
+            if (terrain === "") {
                 return;
             }
             var x = e.pageX - $("#canvas").position().left - 15;
@@ -65,9 +87,38 @@ $(function() {
             pFill = ctx.createPattern(img, "repeat");
             ctx.fillStyle = pFill;
             if (carre === true) {
-                ctx.fillRect(x, y, cote, cote);
+                ctx.fillRect(x, y, diametre, diametre);
             } else {
-                ctx.fillCircle(x, y, cote / 2, pFill);
+                ctx.fillCircle(x, y, diametre / 2, pFill);
+            }
+        }
+
+        function brush(e) {
+            if (!canvas.isDrawing) {
+                return;
+            }
+            var diametre = parseInt($("#diametre").val());
+            if (isNaN(diametre)) {
+                diametre = 50;
+            }
+            var carre = $("#carre").hasClass('active');
+            var terrain = $(".terrain.active").find("img").attr("src");
+            if (terrain === "") {
+                return;
+            }
+            var color = $("#colorpickerField1").val();
+            if (color === "") {
+                color = '000000';
+            }
+            var x = e.pageX - $("#canvas").position().left - 15;
+            var y = e.pageY - $("#canvas").position().top;
+            var ctx = canvas.context;
+            var fillColor = '#' + color;
+            if (carre === true) {
+                ctx.fillStyle = fillColor;
+                ctx.fillRect(x, y, diametre, diametre);
+            } else {
+                ctx.fillCircle(x, y, diametre / 2, fillColor);
             }
         }
 
@@ -75,7 +126,6 @@ $(function() {
             if (!canvas.isDrawing) {
                 return;
             }
-            console.log('bob');
 
             var diametre = parseInt($("#diametre").val());
             if (isNaN(diametre)) {
@@ -83,7 +133,7 @@ $(function() {
             }
             var carre = $("#carre").hasClass('active');
             var x = e.pageX - $("#canvas").position().left - 15;
-            var y = e.pageY - $("#canvas").position().top - 50;
+            var y = e.pageY - $("#canvas").position().top;
             var fillColor = '#ddd';
             if (carre === true) {
                 ctx.fillStyle = fillColor;
@@ -95,11 +145,17 @@ $(function() {
 
         canvas.node.onmousemove = function(e) {
             var eraser = false;
+            var pencil = false;
             if ($("#eraser").hasClass('active')) {
                 eraser = true;
+            } else if ($("#pencil").hasClass('active')) {
+                pencil = true;
             }
+
             if (eraser === true) {
                 erase(e);
+            } else if (pencil === true) {
+                brush(e);
             } else {
                 draw(e);
             }
@@ -108,11 +164,17 @@ $(function() {
         canvas.node.onmousedown = function(e) {
             canvas.isDrawing = true;
             var eraser = false;
+            var pencil = false;
             if ($("#eraser").hasClass('active')) {
                 eraser = true;
+            } else if ($("#pencil").hasClass('active')) {
+                pencil = true;
             }
+
             if (eraser === true) {
                 erase(e);
+            } else if (pencil === true) {
+                brush(e);
             } else {
                 draw(e);
             }

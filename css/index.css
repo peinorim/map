@@ -1,6 +1,19 @@
-.grass {
-    width:95px;
-    height:32px;
-    background:url(../img/terrain.png) 0 -352px;
+.navbar .divider-vertical {
+    height: 50px;
+    margin: 0 9px;
+    border-right: 1px solid #000000;
+    border-left: 1px solid #f2f2f2;
 }
 
+@media (max-width: 767px) {
+    .navbar-collapse .nav > .divider-vertical {
+        display: none;
+    }
+}
+
+.terrain{
+    
+}
+.objet{
+    
+}

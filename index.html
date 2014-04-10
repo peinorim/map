@@ -5,100 +5,117 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/map.js"></script>
     </head>
     <body>
-        <div id="bordure" class="col-md-2">
-
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-                    <h4>Forme du pinceau</h4>
-
-                    <div class="btn-group" data-toggle="buttons">
-                        <label id="carre" class="btn active">
-                            <input type="radio" name="types"><i class="fa fa-square-o fa-2x"></i>
-                        </label>
-                        <label id="rond" class="btn">
-                            <input type="radio" name="types"><i class="fa fa-circle-o fa-2x"></i>
-                        </label>
-                    </div>
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label for="diametre" class="col-sm-4 control-label">Diamètre</label>
-                            <div class="col-sm-4">
-                                <input type="number" class="form-control" id="diametre" value="50">
-                            </div>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button data-target="#navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Générateur de terrains</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                    <form class="navbar-form form-inline">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label id="carre" class="btn btn-default active">
+                                <input type="radio" name="types"><i class="fa fa-square-o"></i>
+                            </label>
+                            <label id="rond" class="btn btn-default">
+                                <input type="radio" name="types"><i class="fa fa-circle-o"></i>
+                            </label>
                         </div>
+                        <input type="number" class="form-control" id="diametre" value="50" style="width:50px;">
+                        <span class="divider-vertical"></span>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label id="eraser" class="btn btn-danger">
+                                <i class="fa fa-eraser fa-lg"></i> Gomme
+                            </label>
+                        </div>
+                        <label id="reset" class="btn btn-danger pull-right">
+                            <i class="fa fa-times fa-lg"></i> Tout effacer
+                        </label>
                     </form>
-                    <hr>
-                    <div class="btn-group" data-toggle="buttons">
-                        <label id="eraser" class="btn btn-danger">
-                            <i class="fa fa-eraser fa-lg"></i> Gomme
-                        </label>
-                    </div>
-                    <hr>
-                    <label id="reset" class="btn btn-danger">
-                        <i class="fa fa-times fa-lg"></i> Tout effacer
-                    </label>
                 </div>
             </div>
+        </nav>
 
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                Bâtiments
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <ul class="list-group">
-                                <li class="list-group-item">Cras justo odio</li>
-                            </ul>
+        <div style="margin-top: 70px;">
+
+            <div id="bordure" class="col-md-2">
+
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    Bâtiments
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">Cras justo odio</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                Terrains
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div class="btn-group form-horizontal" data-toggle="buttons">
-                                <label class="terrain btn btn-default">
-                                    <input type="radio" name="terrains"><img alt="Grass" src="img/textures/grass.png" width="50" height="50" class="img-rounded"/>
-                                </label>
-                                <br/>
-                                <label class="terrain btn btn-default">
-                                    <input type="radio" name="terrains"><img alt="sand" src="img/textures/water.png" width="50" height="50" class="img-rounded"/>
-                                </label>
-                                <br/>
-                                <label class="terrain btn btn-default">
-                                    <input type="radio" name="terrains"><img alt="sand" src="img/textures/higrassup.png" width="50" height="50" class="img-rounded"/>
-                                </label>
-                                <br/>
-                                <label class="terrain btn btn-default">
-                                    <input type="radio" name="terrains"><img alt="sand" src="img/textures/bump.png" width="50" height="50" class="img-rounded"/>
-                                </label>
-                                <br/>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                    Terrains
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <h4>Objets</h4>
+                                <div class="btn-group form-horizontal" data-toggle="buttons">
+                                    <label class="objet btn btn-default">
+                                        <input type="radio" name="terrains"><img alt="Grass" src="img/textures/grass.png" width="50" height="50" class="img-rounded"/>
+                                    </label>
+                                    <br/>
+                                    <label class="objet btn btn-default">
+                                        <input type="radio" name="terrains"><img alt="sand" src="img/textures/water.png" width="50" height="50" class="img-rounded"/>
+                                    </label>
+                                </div>
+                                <hr>
+                                <h4>Textures</h4>
+                                <div class="btn-group form-horizontal" data-toggle="buttons">
+                                    <label class="terrain btn btn-default">
+                                        <input type="radio" name="terrains"><img alt="Grass" src="img/textures/grass.png" width="50" height="50" class="img-rounded"/>
+                                    </label>
+                                    <br/>
+                                    <label class="terrain btn btn-default">
+                                        <input type="radio" name="terrains"><img alt="sand" src="img/textures/water.png" width="50" height="50" class="img-rounded"/>
+                                    </label>
+                                    <br/>
+                                    <label class="terrain btn btn-default">
+                                        <input type="radio" name="terrains"><img alt="sand" src="img/textures/higrassup.png" width="50" height="50" class="img-rounded"/>
+                                    </label>
+                                    <br/>
+                                    <label class="terrain btn btn-default">
+                                        <input type="radio" name="terrains"><img alt="sand" src="img/textures/bump.png" width="50" height="50" class="img-rounded"/>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
+            <div class="col-md-7" id="canvas"></div>
         </div>
-        <div class="col-md-7" id="canvas"></div>
     </body>
 </html>

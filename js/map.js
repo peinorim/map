@@ -58,7 +58,7 @@ $(function() {
                 return;
             }
             var x = e.pageX - $("#canvas").position().left - 15;
-            var y = e.pageY;
+            var y = e.pageY - $("#canvas").position().top;
             var img = new Image();
             var ctx = canvas.context;
             img.src = terrain;
@@ -83,7 +83,7 @@ $(function() {
             }
             var carre = $("#carre").hasClass('active');
             var x = e.pageX - $("#canvas").position().left - 15;
-            var y = e.pageY;
+            var y = e.pageY - $("#canvas").position().top - 50;
             var fillColor = '#ddd';
             if (carre === true) {
                 ctx.fillStyle = fillColor;

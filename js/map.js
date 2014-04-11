@@ -132,7 +132,7 @@ $(function() {
             var fillColor = '#' + color;
             if (carre === true) {
                 ctx.fillStyle = fillColor;
-                ctx.fillRect(x, y, diametre, diametre);
+                ctx.fillRect(x - diametre / 2, y - diametre / 2, diametre, diametre);
             } else {
                 ctx.fillCircle(x, y, diametre / 2, fillColor);
             }
@@ -153,7 +153,7 @@ $(function() {
             var fillColor = '#ddd';
             if (carre === true) {
                 ctx.fillStyle = fillColor;
-                ctx.fillRect(x, y, diametre, diametre);
+                ctx.fillRect(x - diametre / 2, y - diametre / 2, diametre, diametre);
             } else {
                 ctx.fillCircle(x, y, diametre / 2, fillColor);
             }

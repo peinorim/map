@@ -82,6 +82,7 @@ $(function() {
             } else {
                 var diametre = parseInt($("#diametre").val());
                 var terrain = $(".terrain.active").find("img").attr("src");
+                var cote = diametre;
             }
             if (isNaN(diametre)) {
                 diametre = 50;
@@ -91,7 +92,7 @@ $(function() {
                 return null;
             }
             var x = e.pageX - $("#canvas").position().left - 15 - diametre / 2;
-            var y = e.pageY - $("#canvas").position().top - diametre / 2;
+            var y = e.pageY - $("#canvas").position().top - cote / 2;
             var img = new Image();
             var ctx = canvas.context;
             img.src = terrain;

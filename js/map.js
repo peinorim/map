@@ -12,6 +12,7 @@ $(function() {
         },
         onChange: function(hsb, hex, rgb) {
             $('#colorpickerField1').val(hex);
+            $('#colorpickerField1').siblings().css('color', '#' + hex);
         }
     }).bind('keyup', function() {
         $(this).ColorPickerSetColor(this.value);
@@ -89,8 +90,8 @@ $(function() {
             if (typeof terrain === 'undefined') {
                 return null;
             }
-            var x = e.pageX - $("#canvas").position().left - 15;
-            var y = e.pageY - $("#canvas").position().top;
+            var x = e.pageX - $("#canvas").position().left - 15 - diametre / 2;
+            var y = e.pageY - $("#canvas").position().top - diametre / 2;
             var img = new Image();
             var ctx = canvas.context;
             img.src = terrain;

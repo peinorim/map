@@ -1,6 +1,7 @@
 $(function() {
 
     var container = document.getElementById('canvas');
+    var lastX, lastY, ctx;
 
     $('#colorpickerField1').ColorPicker({
         onSubmit: function(hsb, hex, rgb, el) {
@@ -20,7 +21,7 @@ $(function() {
 
     $("#reset").click(function() {
         $("#canvas").children().remove();
-        init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ddd');
+        init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
     });
 
     $(".terrain").click(function() {
@@ -51,7 +52,7 @@ $(function() {
     function init(container, width, height, fillColor) {
 
         var canvas = createCanvas(container, width, height);
-        var ctx = canvas.context;
+        ctx = canvas.context;
         ctx.clearTo = function(fillColor) {
             w = width || document.getElementById("canvas").offsetWidth;
             h = height || document.getElementById("canvas").offsetWidth;
@@ -69,7 +70,7 @@ $(function() {
             ctx.fillStyle = fillColor;
             ctx.fillRect(0, 0, width, height);
         };
-        ctx.clearTo(fillColor || "#ddd");
+        ctx.clearTo(fillColor || "#ffffff");
 
         function draw(e) {
             if (!canvas.isDrawing) {
@@ -105,37 +106,41 @@ $(function() {
             } else {
                 pFill = ctx.createPattern(img, "repeat");
                 ctx.fillStyle = pFill;
-                ctx.fillCircle(x, y, diametre / 2, pFill);
+                ctx.fillCircle(x + diametre / 2, y + cote / 2, diametre / 2, pFill);
             }
         }
 
         function brush(e) {
-            if (!canvas.isDrawing) {
-                return;
-            }
-            var diametre = parseInt($("#diametre").val());
-            if (isNaN(diametre)) {
-                diametre = 50;
-            }
-            var carre = $("#carre").hasClass('active');
-            var terrain = $(".terrain.active").find("img").attr("src");
-            if (terrain === "") {
-                return;
-            }
-            var color = $("#colorpickerField1").val();
-            if (color === "") {
-                color = '000000';
-            }
-            var x = e.pageX - $("#canvas").position().left - 15;
-            var y = e.pageY - $("#canvas").position().top;
-            var ctx = canvas.context;
-            var fillColor = '#' + color;
-            if (carre === true) {
-                ctx.fillStyle = fillColor;
-                ctx.fillRect(x - diametre / 2, y - diametre / 2, diametre, diametre);
-            } else {
+            if (canvas.isDrawing) {
+
+                var diametre = parseInt($("#diametre").val());
+                if (isNaN(diametre)) {
+                    diametre = 50;
+                }
+                var terrain = $(".terrain.active").find("img").attr("src");
+                if (terrain === "") {
+                    return;
+                }
+                var color = $("#colorpickerField1").val();
+                if (color === "") {
+                    color = '000000';
+                }
+                var x = e.pageX - $("#canvas").position().left - 15;
+                var y = e.pageY - $("#canvas").position().top;
+                ctx = canvas.context;
+                var fillColor = '#' + color;
                 ctx.fillCircle(x, y, diametre / 2, fillColor);
+                ctx.beginPath();
+                ctx.strokeStyle = fillColor;
+                ctx.lineWidth = diametre;
+                ctx.lineJoin = "round";
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.closePath();
+                ctx.stroke();
             }
+            lastX = x;
+            lastY = y;
         }
 
         function erase(e) {
@@ -150,7 +155,7 @@ $(function() {
             var carre = $("#carre").hasClass('active');
             var x = e.pageX - $("#canvas").position().left - 15;
             var y = e.pageY - $("#canvas").position().top;
-            var fillColor = '#ddd';
+            var fillColor = '#ffffff';
             if (carre === true) {
                 ctx.fillStyle = fillColor;
                 ctx.fillRect(x - diametre / 2, y - diametre / 2, diametre, diametre);
@@ -213,7 +218,7 @@ $(function() {
         };
     }
 
-    init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ddd');
+    init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
 
 });
 

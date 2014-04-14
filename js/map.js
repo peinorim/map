@@ -101,7 +101,7 @@ $(function() {
                 ctx.fillStyle = pFill;
                 ctx.fillRect(x, y, diametre, diametre);
             } else if ($(".objet").hasClass('active')) {
-                ctx.drawImage(img, x, y, diametre, cote);
+                ctx.drawImage(img, x + diametre / 2, y + cote / 2, diametre, cote);
             } else {
                 pFill = ctx.createPattern(img, "repeat");
                 ctx.fillStyle = pFill;
@@ -179,6 +179,15 @@ $(function() {
             } else {
                 draw(e);
             }
+        };
+
+        canvas.node.onmouseover = function(e) {
+            var terrain = $(".objet.active").find("img").attr("src");
+            var diametre = $(".objet.active").find("img").attr("width");
+            var cote = $(".objet.active").find("img").attr("height");
+            var x = -diametre / 2;
+            var y = -cote / 2;
+            $('canvas').css('cursor', 'url("' + terrain + '")' + x + ' ' + y + ', pointer');
         };
 
         canvas.node.onmousedown = function(e) {

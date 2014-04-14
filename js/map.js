@@ -196,6 +196,9 @@ $(function() {
         };
 
         canvas.node.onmousedown = function(e) {
+            if(e.which === 3){
+                return;
+            }
             canvas.isDrawing = true;
             var eraser = false;
             var pencil = false;

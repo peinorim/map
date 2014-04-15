@@ -20,3 +20,7 @@
 canvas{
     border: 2px solid black;
 }
+.stick{
+    padding-left: 0!important;
+    padding-right: 0!important;
+}

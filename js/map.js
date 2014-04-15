@@ -26,7 +26,7 @@ $(function() {
 
     $("#reset").click(function() {
         $("#canvas").children().remove();
-        init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
+        init(container, document.getElementById("canvas").offsetWidth - 15, document.getElementById("canvas").offsetWidth, '#ffffff');
     });
 
     $(".terrain").click(function() {
@@ -97,7 +97,7 @@ $(function() {
             if (typeof terrain === 'undefined') {
                 return null;
             }
-            var x = e.pageX - $("#canvas").position().left - 15 - diametre / 2;
+            var x = e.pageX - $("#canvas").position().left - diametre / 2;
             var y = e.pageY - $("#canvas").position().top - cote / 2;
             var img = new Image();
             var ctx = canvas.context;
@@ -130,7 +130,7 @@ $(function() {
                 if (color === "") {
                     color = '000000';
                 }
-                var x = e.pageX - $("#canvas").position().left - 15;
+                var x = e.pageX - $("#canvas").position().left;
                 var y = e.pageY - $("#canvas").position().top;
                 ctx = canvas.context;
                 var fillColor = '#' + color;
@@ -158,7 +158,7 @@ $(function() {
                 diametre = 50;
             }
             var carre = $("#carre").hasClass('active');
-            var x = e.pageX - $("#canvas").position().left - 15;
+            var x = e.pageX - $("#canvas").position().left;
             var y = e.pageY - $("#canvas").position().top;
             var fillColor = '#ffffff';
             if (carre === true) {
@@ -284,7 +284,7 @@ $(function() {
         cPush();
     }
 
-    init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
+    init(container, document.getElementById("canvas").offsetWidth - 15, document.getElementById("canvas").offsetWidth, '#ffffff');
 });
 
 

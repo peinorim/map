@@ -2,6 +2,11 @@ $(function() {
 
     var container = document.getElementById('canvas');
     var lastX, lastY, ctx;
+    var cPushArray = new Array();
+    var cStep = -1;
+    var arrShortCut = [{name: 'ctrly', key: 89}, {name: 'ctrlz', key: 90}];
+    var iShortCutControlKey = 17; // CTRL;
+    var bIsControlKeyActived = false;
 
     $('#colorpickerField1').ColorPicker({
         onSubmit: function(hsb, hex, rgb, el) {
@@ -98,13 +103,13 @@ $(function() {
             var ctx = canvas.context;
             img.src = terrain;
             if (carre === true && !$(".objet").hasClass('active')) {
-                pFill = ctx.createPattern(img, "repeat");
+                var pFill = ctx.createPattern(img, "repeat");
                 ctx.fillStyle = pFill;
                 ctx.fillRect(x, y, diametre, diametre);
             } else if ($(".objet").hasClass('active')) {
                 ctx.drawImage(img, x + diametre / 2, y + cote / 2, diametre, cote);
             } else {
-                pFill = ctx.createPattern(img, "repeat");
+                var pFill = ctx.createPattern(img, "repeat");
                 ctx.fillStyle = pFill;
                 ctx.fillCircle(x + diametre / 2, y + cote / 2, diametre / 2, pFill);
             }
@@ -196,7 +201,7 @@ $(function() {
         };
 
         canvas.node.onmousedown = function(e) {
-            if(e.which === 3){
+            if (e.which === 3) {
                 return;
             }
             canvas.isDrawing = true;
@@ -218,11 +223,68 @@ $(function() {
         };
         canvas.node.onmouseup = function(e) {
             canvas.isDrawing = false;
+            cPush();
         };
+
+        $("#undo").click(function() {
+            cUndo();
+        });
+
+        $("#redo").click(function() {
+            cRedo();
+        });
+
+        $(document).keyup(function(e) {
+            if (e.which === iShortCutControlKey)
+                bIsControlKeyActived = false;
+        }).keydown(function(e) {
+            if (e.which === iShortCutControlKey)
+                bIsControlKeyActived = true;
+            if (bIsControlKeyActived === true) {
+                jQuery.each(arrShortCut, function(i) {
+                    if (arrShortCut[i].key === e.which) {
+                        if (arrShortCut[i].key === 89) {
+                            cRedo();
+                        } else if (arrShortCut[i].key === 90) {
+                            cUndo();
+                        }
+                        return;
+                    }
+                });
+            }
+        });
+
+        function cPush() {
+            cStep++;
+            if (cStep < cPushArray.length) {
+                cPushArray.length = cStep;
+            }
+            cPushArray.push(canvas.node.toDataURL());
+        }
+        function cUndo() {
+            if (cStep > 0) {
+                cStep--;
+                var canvasPic = new Image();
+                canvasPic.src = cPushArray[cStep];
+                canvasPic.onload = function() {
+                    ctx.drawImage(canvasPic, 0, 0);
+                };
+            }
+        }
+        function cRedo() {
+            if (cStep < cPushArray.length - 1) {
+                cStep++;
+                var canvasPic = new Image();
+                canvasPic.src = cPushArray[cStep];
+                canvasPic.onload = function() {
+                    ctx.drawImage(canvasPic, 0, 0);
+                };
+            }
+        }
+        cPush();
     }
 
     init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
-
 });
 
 

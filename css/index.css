@@ -11,16 +11,20 @@
     }
 }
 
-.terrain{
+.terrain, .objet, .layers, .removeLayer{
 
 }
-.objet{
 
-}
 canvas{
     border: 2px solid black;
+    background-color: transparent;
+    position: absolute;
 }
 .stick{
     padding-left: 0!important;
     padding-right: 0!important;
+}
+
+.fa-lg {
+    line-height: 0.5em;
 }

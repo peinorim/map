@@ -36,7 +36,7 @@
                                 <input type="radio" name="types"><i class="fa fa-circle-o"></i>
                             </label>
                         </div>
-                        <input type="number" class="form-control" id="diametre" value="50" style="width:75px;">
+                        <input type="number" class="form-control" id="diametre" value="50" style="width:75px;" placeholder="Diamètre">
                         <div class="form-group has-success has-feedback">
                             <input type="text" class="form-control" id="colorpickerField1" value="000000" style="width:120px;">
                             <i class="fa fa-square form-control-feedback" style="color:#000000;"></i>
@@ -196,9 +196,11 @@
 
             </div>
             <div class="col-md-2 panel panel-primary stick">
-                <div class="panel-heading">Calques</div>
+                <div class="panel-heading">Calques <i id="add_layer" class="btn fa fa-plus fa-lg"></i></div>
                 <div class="panel-body">
-                    
+                    <ul class="nav nav-pills nav-stacked layers">
+                        <li><a href="#">Fond <i style="padding: 6px 12px;" class="fa fa-lock fa-lg pull-right"></i></a></li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ $(function() {
     var arrShortCut = [{name: 'ctrly', key: 89}, {name: 'ctrlz', key: 90}];
     var iShortCutControlKey = 17; // CTRL;
     var bIsControlKeyActived = false;
+    var current_layer = 0;
 
     $('#colorpickerField1').ColorPicker({
         onSubmit: function(hsb, hex, rgb, el) {
@@ -43,7 +44,23 @@ $(function() {
         });
     });
 
+    $("#add_layer").click(function() {
+        $('.layers').append('<li><a data-layer="' + current_layer + '" href="#">Calque ' + current_layer + ' <i class="btn fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
+        init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
+    });
 
+    $(document).on('click', '.removeLayer', function() {
+        var num_layer = parseInt($(this).parent().attr('data-layer'));
+        $(this).parent().parent().remove();
+        $('canvas[style*="z-index: ' + num_layer + '"]').remove();
+    });
+
+    $(document).on('click', '.layers li', function() {
+        var layer_active = parseInt($(this).parent().attr('data-layer'));
+        $(".layers li").removeClass('active');
+        $(this).addClass('active');
+    });
+    
     function createCanvas(parent, width, height) {
         var canvas = {};
         canvas.node = document.createElement('canvas');
@@ -282,6 +299,8 @@ $(function() {
             }
         }
         cPush();
+        $(canvas.node).css('z-index', current_layer);
+        current_layer++;
     }
 
     init(container, document.getElementById("canvas").offsetWidth - 15, document.getElementById("canvas").offsetWidth, '#ffffff');

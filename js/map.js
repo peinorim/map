@@ -45,22 +45,26 @@ $(function() {
     });
 
     $("#add_layer").click(function() {
-        $('.layers').append('<li><a data-layer="' + current_layer + '" href="#">Calque ' + current_layer + ' <i class="btn fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
-        init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
+        $('.layers').prepend('<li><a data-layer="' + current_layer + '" href="#">Calque ' + current_layer + ' <i class="btn fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
+        var canvas = init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
+        $('.layers li').removeClass('active');
+        $('.layers li:first').addClass('active');
+        ctx.clearRect(0, 0, canvas.node.width, canvas.node.height);
     });
 
     $(document).on('click', '.removeLayer', function() {
         var num_layer = parseInt($(this).parent().attr('data-layer'));
         $(this).parent().parent().remove();
-        $('canvas[style*="z-index: ' + num_layer + '"]').remove();
+        $('canvas[data-layer="'+num_layer+'"]').remove();
     });
 
     $(document).on('click', '.layers li', function() {
-        var layer_active = parseInt($(this).parent().attr('data-layer'));
+        var layer_active = parseInt($(this).children(':first').attr('data-layer'));
         $(".layers li").removeClass('active');
         $(this).addClass('active');
+        $('canvas[style="z-index: ' + layer_active + ';"]').css('z-index', parseInt($('canvas[style="z-index: ' + layer_active + ';"]').css('z-index')) + 10000);
     });
-    
+
     function createCanvas(parent, width, height) {
         var canvas = {};
         canvas.node = document.createElement('canvas');
@@ -300,7 +304,9 @@ $(function() {
         }
         cPush();
         $(canvas.node).css('z-index', current_layer);
+        $(canvas.node).attr('data-layer', current_layer);
         current_layer++;
+        return canvas;
     }
 
     init(container, document.getElementById("canvas").offsetWidth - 15, document.getElementById("canvas").offsetWidth, '#ffffff');

@@ -55,14 +55,15 @@ $(function() {
     $(document).on('click', '.removeLayer', function() {
         var num_layer = parseInt($(this).parent().attr('data-layer'));
         $(this).parent().parent().remove();
-        $('canvas[data-layer="'+num_layer+'"]').remove();
+        $('canvas[data-layer="' + num_layer + '"]').remove();
     });
 
     $(document).on('click', '.layers li', function() {
         var layer_active = parseInt($(this).children(':first').attr('data-layer'));
         $(".layers li").removeClass('active');
         $(this).addClass('active');
-        $('canvas[style="z-index: ' + layer_active + ';"]').css('z-index', parseInt($('canvas[style="z-index: ' + layer_active + ';"]').css('z-index')) + 10000);
+        $('canvas').css('z-index', -1);
+        $('canvas[data-layer="' + layer_active + '"]').css('z-index', layer_active);
     });
 
     function createCanvas(parent, width, height) {

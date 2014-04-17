@@ -8,6 +8,7 @@ $(function() {
     var iShortCutControlKey = 17; // CTRL;
     var bIsControlKeyActived = false;
     var current_layer = 0;
+    var layer_active = 0;
 
     $('#colorpickerField1').ColorPicker({
         onSubmit: function(hsb, hex, rgb, el) {
@@ -24,6 +25,8 @@ $(function() {
     }).bind('keyup', function() {
         $(this).ColorPickerSetColor(this.value);
     });
+    
+    $('.colorpicker').css('z-index', 10000);
 
     $("#reset").click(function() {
         $("#canvas").children().remove();
@@ -49,6 +52,7 @@ $(function() {
         var canvas = init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
         $('.layers li').removeClass('active');
         $('.layers li:first').addClass('active');
+        layer_active = $('.layers li.active').children(':first').attr('data-layer');
         ctx.clearRect(0, 0, canvas.node.width, canvas.node.height);
     });
 
@@ -56,10 +60,12 @@ $(function() {
         var num_layer = parseInt($(this).parent().attr('data-layer'));
         $(this).parent().parent().remove();
         $('canvas[data-layer="' + num_layer + '"]').remove();
+        $('.layers li:first').addClass('active');
+        layer_active = parseInt($('.layers li.active').children(':first').attr('data-layer'));
     });
 
     $(document).on('click', '.layers li', function() {
-        var layer_active = parseInt($(this).children(':first').attr('data-layer'));
+        layer_active = parseInt($(this).children(':first').attr('data-layer'));
         $(".layers li").removeClass('active');
         $(this).addClass('active');
         $('canvas').css('z-index', -1);
@@ -278,26 +284,29 @@ $(function() {
 
         function cPush() {
             cStep++;
-            if (cStep < cPushArray.length) {
-                cPushArray.length = cStep;
+            if (typeof cPushArray[layer_active] === 'undefined') {
+                cPushArray[layer_active] = new Array();
             }
-            cPushArray.push(canvas.node.toDataURL());
+            if (cStep < cPushArray[layer_active].length) {
+                cPushArray[layer_active].length = cStep;
+            }
+            cPushArray[layer_active].push(canvas.node.toDataURL());
         }
         function cUndo() {
             if (cStep > 0) {
                 cStep--;
                 var canvasPic = new Image();
-                canvasPic.src = cPushArray[cStep];
+                canvasPic.src = cPushArray[layer_active][cStep];
                 canvasPic.onload = function() {
                     ctx.drawImage(canvasPic, 0, 0);
                 };
             }
         }
         function cRedo() {
-            if (cStep < cPushArray.length - 1) {
+            if (cStep < cPushArray[layer_active].length - 1) {
                 cStep++;
                 var canvasPic = new Image();
-                canvasPic.src = cPushArray[cStep];
+                canvasPic.src = cPushArray[layer_active][cStep];
                 canvasPic.onload = function() {
                     ctx.drawImage(canvasPic, 0, 0);
                 };

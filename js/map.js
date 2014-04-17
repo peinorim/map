@@ -48,8 +48,8 @@ $(function() {
     });
 
     $("#add_layer").click(function() {
-        $('.layers').prepend('<li><a data-layer="' + current_layer + '" href="#"><i style="padding: 6px 0px;color:black;" class="btn fa fa-eye fa-lg pull-left hideLayer"></i> Calque ' + current_layer + ' <i style="padding: 6px 12px;" class="btn fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
-        var canvas = init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
+        $('.layers').prepend('<li><a data-layer="' + current_layer + '" href="#"><i style="padding: 6px 0px;color:black;" class="fa fa-eye fa-lg pull-left hideLayer"></i> Calque ' + current_layer + ' <i style="padding: 6px 12px;" class="fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
+        var canvas = init(container, $('canvas:first').width(), $('canvas:first').height(), '#ffffff');
         $('.layers li').removeClass('active');
         $('.layers li:first').addClass('active');
         layer_active = $('.layers li.active').children(':first').attr('data-layer');

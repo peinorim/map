@@ -25,7 +25,7 @@ $(function() {
     }).bind('keyup', function() {
         $(this).ColorPickerSetColor(this.value);
     });
-    
+
     $('.colorpicker').css('z-index', 10000);
 
     $("#reset").click(function() {
@@ -48,7 +48,7 @@ $(function() {
     });
 
     $("#add_layer").click(function() {
-        $('.layers').prepend('<li><a data-layer="' + current_layer + '" href="#">Calque ' + current_layer + ' <i class="btn fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
+        $('.layers').prepend('<li><a data-layer="' + current_layer + '" href="#"><i style="padding: 6px 0px;color:black;" class="btn fa fa-eye fa-lg pull-left hideLayer"></i> Calque ' + current_layer + ' <i style="padding: 6px 12px;" class="btn fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
         var canvas = init(container, document.getElementById("canvas").offsetWidth, document.getElementById("canvas").offsetWidth, '#ffffff');
         $('.layers li').removeClass('active');
         $('.layers li:first').addClass('active');
@@ -62,6 +62,21 @@ $(function() {
         $('canvas[data-layer="' + num_layer + '"]').remove();
         $('.layers li:first').addClass('active');
         layer_active = parseInt($('.layers li.active').children(':first').attr('data-layer'));
+        return false;
+    });
+
+    $(document).on('click', '.hideLayer', function() {
+        var num_layer = parseInt($(this).parent().attr('data-layer'));
+
+        if ($(this).css('color') === 'rgb(0, 0, 0)') {
+            $('canvas[data-layer="' + num_layer + '"]').css('opacity', 0);
+            $(this).css('color', 'red');
+        } else {
+            $('canvas[data-layer="' + num_layer + '"]').css('opacity', 1);
+            $(this).css('color', 'black');
+        }
+
+        return false;
     });
 
     $(document).on('click', '.layers li', function() {

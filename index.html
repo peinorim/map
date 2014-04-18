@@ -195,19 +195,60 @@
             <div class="col-md-8 stick" id="canvas">
 
             </div>
-            <div class="col-md-2 panel panel-primary stick">
-                <div class="panel-heading">Calques <i id="add_layer" class="btn fa fa-plus fa-lg"></i></div>
-                <div class="panel-body">
-                    <ul class="nav nav-pills nav-stacked layers">
-                        <li class="active">
-                            <a href="#" data-layer="0">
-                                <i style="padding: 5px 0px 0px;color:black;" class="fa fa-eye fa-lg pull-left hideLayer"></i> 
-                                Fond 
-                                <i style="padding: 6px 12px;" class="fa fa-lock fa-lg pull-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+            <div class="col-md-2">
+                <div class="panel panel-primary stick">
+                    <div class="panel-heading">Calques <i id="add_layer" class="btn fa fa-plus fa-lg"></i></div>
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked layers">
+                            <li class="active">
+                                <a href="#" data-layer="0">
+                                    <i style="padding: 5px 0px 0px;color:black;" class="fa fa-eye fa-lg pull-left hideLayer"></i> 
+                                    Fond 
+                                    <i style="padding: 6px 12px;" class="fa fa-lock fa-lg pull-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <form class="form-horizontal" role="form">
+                    <span>Insérer du texte</span>
+                    <div class="form-group">
+                        <label for="fontsize" class="col-sm-2 control-label">Taille</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control col-sm-4" id="fontsize" placeholder="px" value="12" style="width:75px;">
+                            <div class="btn-group col-sm-8" data-toggle="buttons">
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" name="options" id="bold"><i class="fa fa-bold"></i>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" name="options" id="italic"><i class="fa fa-italic"></i>
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="checkbox" name="options" id="souligne"><i class="fa fa-underline"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="text" class="col-sm-2 control-label">Texte</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="text" placeholder="Texte">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="coordX" class="col-sm-2 control-label">X</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" id="coordX" placeholder="Coord X" value="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coordY" class="col-sm-2 control-label">Y</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" id="coordY" placeholder="Coord Y" value="0">
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </body>

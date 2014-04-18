@@ -158,20 +158,6 @@ $(function() {
             }
         }
 
-        function text() {
-            var fontsize = parseInt($("#fontsize").val());
-            var text = $("#text").val();
-            var color = $("#colorpickerField1").val();
-            if (color === "") {
-                color = '000000';
-            }
-            var x = parseInt($("#coordX").val());
-            var y = parseInt($("#coordY").val());
-            ctx.fillStyle = "#" + color;
-            ctx.font = "bold" + fontsize + "px Arial";
-            ctx.fillText(text, x, y);
-        }
-
         function brush(e) {
             if (canvas.isDrawing) {
 
@@ -289,11 +275,6 @@ $(function() {
 
         $("#redo").click(function() {
             cRedo();
-        });
-
-        $("#text").keyup(function() {
-            text();
-            return false;
         });
 
         $(document).keyup(function(e) {

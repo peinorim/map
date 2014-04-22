@@ -34,11 +34,13 @@ $(function() {
     });
 
     $(".terrain").click(function() {
-        $("#eraser, #pencil, .objet").removeClass('active');
+        $("#textForm").hide();
+        $("#eraser, #pencil, .objet, #text").removeClass('active');
     });
 
     $(".objet").click(function() {
-        $("#eraser, #pencil, .terrain").removeClass('active');
+        $("#textForm").hide();
+        $("#eraser, #pencil, .terrain, #text").removeClass('active');
     });
 
     $("#eraser, #pencil").click(function() {
@@ -87,6 +89,8 @@ $(function() {
         $('canvas[data-layer="' + layer_active + '"]').css('z-index', layer_active);
     });
 
+    $("#textForm").draggable({containment: "parent"});
+
     function createCanvas(parent, width, height) {
         var canvas = {};
         canvas.node = document.createElement('canvas');
@@ -119,6 +123,20 @@ $(function() {
             ctx.fillRect(0, 0, width, height);
         };
         ctx.clearTo(fillColor || "#ffffff");
+
+        function showText(e) {
+            if (!canvas.isDrawing) {
+                return;
+            }
+            $(".terrain").removeClass('active');
+            $(".objet").removeClass('active');
+            $('#textContent').val('');
+            $('#textForm').show();
+            layer_active = $('.layers li.active').children(':first').attr('data-layer');
+            $('#textForm').css('left', e.pageX - $("#canvas").position().left);
+            $('#textForm').css('top', e.pageY - $("#canvas").position().top);
+            $('#textForm').css('z-index', layer_active + 1);
+        }
 
         function draw(e) {
             if (!canvas.isDrawing) {
@@ -250,16 +268,21 @@ $(function() {
             canvas.isDrawing = true;
             var eraser = false;
             var pencil = false;
+            var text = false;
             if ($("#eraser").hasClass('active')) {
                 eraser = true;
             } else if ($("#pencil").hasClass('active')) {
                 pencil = true;
+            } else if ($("#text").hasClass('active')) {
+                text = true;
             }
 
             if (eraser === true) {
                 erase(e);
             } else if (pencil === true) {
                 brush(e);
+            } else if (text === true) {
+                showText(e);
             } else {
                 draw(e);
             }
@@ -275,6 +298,26 @@ $(function() {
 
         $("#redo").click(function() {
             cRedo();
+        });
+
+        $("#validText").click(function() {
+            var color = $("#colorpickerField1").val();
+            if (color === "") {
+                color = '000000';
+            }
+            layer_active = parseInt($(this).children(':first').attr('data-layer'));
+            ctx.fillStyle = "#" + color;
+            ctx.font = "16px Calibri";
+            ctx.fillText($('#textContent').val(), $('#textForm').css('left').split("px")[0], $('#textForm').css('top').split("px")[0]);
+            canvas.isDrawing = false;
+            cPush();
+            $('#textForm').hide();
+            $('#textContent').val('');
+        });
+
+        $("#cancelText").click(function() {
+            canvas.isDrawing = false;
+            $("#textForm").hide();
         });
 
         $(document).keyup(function(e) {

@@ -318,6 +318,7 @@ $(function() {
         $("#cancelText").click(function() {
             canvas.isDrawing = false;
             $("#textForm").hide();
+            $('#textContent').val('');
         });
 
         $(document).keyup(function(e) {

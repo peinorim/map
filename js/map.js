@@ -38,7 +38,8 @@ $(function() {
         $("#eraser, #pencil, .objet, #text, #line, #dash").removeClass('active');
     });
 
-    $("#eraser, #pencil").click(function() {
+    $("#eraser, #pencil, #text").click(function() {
+        $('#tack').hide();
         $(".objet, .terrain").removeClass('active');
     });
 
@@ -224,6 +225,7 @@ $(function() {
                 ctx.lineTo(x, y);
                 ctx.closePath();
                 ctx.stroke();
+                $('#tack').show();
                 $('#tack').css('z-index', layer_active + 1);
                 $('#tack').css('left', x);
                 $('#tack').css('top', y - 20);
@@ -248,6 +250,7 @@ $(function() {
                 ctx.lineTo(x, y);
                 ctx.closePath();
                 ctx.stroke();
+                $('#tack').show();
                 $('#tack').css('z-index', layer_active + 1);
                 $('#tack').css('left', x);
                 $('#tack').css('top', y - 20);

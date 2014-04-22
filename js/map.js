@@ -80,6 +80,8 @@ $(function() {
         $(".layers li").removeClass('active');
         $(this).addClass('active');
         $('canvas').css('z-index', -1);
+        $('#textForm').css('z-index', -1);
+        $('#tack').css('z-index', -1);
         $('canvas[data-layer="' + layer_active + '"]').css('z-index', layer_active);
     });
 

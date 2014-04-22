@@ -51,6 +51,12 @@
                             <label id="pencil" class="btn btn-default active" title="Crayons">
                                 <input type="radio" name="brushes"><i class="fa fa-pencil fa-lg"></i>
                             </label>
+                            <label id="line" class="btn btn-default" title="Crayons">
+                                <input type="radio" name="brushes"><i class="fa fa-minus fa-lg"></i>
+                            </label>
+                            <label id="dash" class="btn btn-default" title="Crayons">
+                                <input type="radio" name="brushes"><i class="fa fa-ellipsis-h fa-lg"></i>
+                            </label>
                             <label id="eraser" class="btn btn-danger" title="Gomme">
                                 <input type="radio" name="brushes"><i class="fa fa-eraser fa-lg"></i>
                             </label>
@@ -198,6 +204,7 @@
 
             </div>
             <div class="col-md-8 stick" id="canvas">
+                <img id="tack" alt="stone_ground" src="img/field_objects/thumbtack.png" width="13" height="20" style="position:absolute;"/>
                 <form id="textForm" class="form-inline" role="form">
                     <div class="form-group">
                         <textarea id="textContent" class="form-control" style="width:200px;" placeholder="Votre texte"></textarea>

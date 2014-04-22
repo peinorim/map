@@ -1,7 +1,7 @@
 $(function() {
 
     var container = document.getElementById('canvas');
-    var lastX, lastY, ctx;
+    var lastX, lastY, lastXX, lastYY, ctx;
     var cPushArray = new Array();
     var cStep = -1;
     var arrShortCut = [{name: 'ctrly', key: 89}, {name: 'ctrlz', key: 90}];
@@ -33,20 +33,13 @@ $(function() {
         init(container, document.getElementById("canvas").offsetWidth - 15, document.getElementById("canvas").offsetWidth, '#ffffff');
     });
 
-    $(".terrain").click(function() {
+    $(".terrain, .objet").click(function() {
         $("#textForm").hide();
-        $("#eraser, #pencil, .objet, #text").removeClass('active');
-    });
-
-    $(".objet").click(function() {
-        $("#textForm").hide();
-        $("#eraser, #pencil, .terrain, #text").removeClass('active');
+        $("#eraser, #pencil, .objet, #text, #line, #dash").removeClass('active');
     });
 
     $("#eraser, #pencil").click(function() {
-        $(".objet, .terrain").each(function() {
-            $(this).removeClass('active');
-        });
+        $(".objet, .terrain").removeClass('active');
     });
 
     $("#add_layer").click(function() {
@@ -209,6 +202,60 @@ $(function() {
             lastY = y;
         }
 
+        function traceLine(e) {
+            if (canvas.isDrawing) {
+
+                var diametre = parseInt($("#diametre").val());
+                if (isNaN(diametre)) {
+                    diametre = 50;
+                }
+                var color = $("#colorpickerField1").val();
+                if (color === "") {
+                    color = '000000';
+                }
+                var x = e.pageX - $("#canvas").position().left;
+                var y = e.pageY - $("#canvas").position().top;
+                var fillColor = '#' + color;
+                ctx.beginPath();
+                ctx.strokeStyle = fillColor;
+                ctx.lineWidth = diametre;
+                ctx.lineJoin = "round";
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.closePath();
+                ctx.stroke();
+                $('#tack').css('z-index', layer_active + 1);
+                $('#tack').css('left', x);
+                $('#tack').css('top', y - 20);
+            }
+            lastX = x;
+            lastY = y;
+        }
+
+        function traceDash(e) {
+            if (canvas.isDrawing) {
+                var color = $("#colorpickerField1").val();
+                if (color === "") {
+                    color = '000000';
+                }
+                var x = e.pageX - $("#canvas").position().left;
+                var y = e.pageY - $("#canvas").position().top;
+                var fillColor = '#' + color;
+                ctx.beginPath();
+                ctx.strokeStyle = fillColor;
+                ctx.setLineDash([10, 15]);
+                ctx.moveTo(lastXX, lastYY);
+                ctx.lineTo(x, y);
+                ctx.closePath();
+                ctx.stroke();
+                $('#tack').css('z-index', layer_active + 1);
+                $('#tack').css('left', x);
+                $('#tack').css('top', y - 20);
+            }
+            lastXX = x;
+            lastYY = y;
+        }
+
         function erase(e) {
             if (!canvas.isDrawing) {
                 return;
@@ -253,12 +300,17 @@ $(function() {
         };
 
         canvas.node.onmouseover = function(e) {
-            var terrain = $(".objet.active").find("img").attr("src");
-            var diametre = $(".objet.active").find("img").attr("width");
-            var cote = $(".objet.active").find("img").attr("height");
-            var x = -diametre / 2;
-            var y = -cote / 2;
-            $('canvas').css('cursor', 'url("' + terrain + '")' + x + ' ' + y + ', pointer');
+            if ($("#line").hasClass('active') || $("#dash").hasClass('active')) {
+                $('canvas').css('cursor', 'url("img/field_objects/thumbtack.png")' + 0 + ' ' + 20 + ', pointer');
+            } else {
+                var terrain = $(".objet.active").find("img").attr("src");
+                var diametre = $(".objet.active").find("img").attr("width");
+                var cote = $(".objet.active").find("img").attr("height");
+                var x = -diametre / 2;
+                var y = -cote / 2;
+                $('canvas').css('cursor', 'url("' + terrain + '")' + x + ' ' + y + ', pointer');
+            }
+
         };
 
         canvas.node.onmousedown = function(e) {
@@ -269,12 +321,18 @@ $(function() {
             var eraser = false;
             var pencil = false;
             var text = false;
+            var line = false;
+            var dash = false;
             if ($("#eraser").hasClass('active')) {
                 eraser = true;
             } else if ($("#pencil").hasClass('active')) {
                 pencil = true;
             } else if ($("#text").hasClass('active')) {
                 text = true;
+            } else if ($("#line").hasClass('active')) {
+                line = true;
+            } else if ($("#dash").hasClass('active')) {
+                dash = true;
             }
 
             if (eraser === true) {
@@ -283,6 +341,10 @@ $(function() {
                 brush(e);
             } else if (text === true) {
                 showText(e);
+            } else if (line === true) {
+                traceLine(e);
+            } else if (dash === true) {
+                traceDash(e);
             } else {
                 draw(e);
             }

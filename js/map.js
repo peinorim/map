@@ -1,7 +1,7 @@
 $(function() {
 
     var container = document.getElementById('canvas');
-    var lastX, lastY, lastXX, lastYY, ctx;
+    var lastX, lastY, lastXX, lastYY, ctx = null;
     var cPushArray = new Array();
     var cStep = -1;
     var arrShortCut = [{name: 'ctrly', key: 89}, {name: 'ctrlz', key: 90}];
@@ -35,11 +35,21 @@ $(function() {
 
     $(".terrain, .objet").click(function() {
         $("#textForm").hide();
+        $('#tack').hide();
+        $('#tack').css('left', '');
+        $('#tack').css('top', '');
         $("#eraser, #pencil, .objet, #text, #line, #dash").removeClass('active');
     });
 
-    $("#eraser, #pencil, #text").click(function() {
+    $("#eraser, #pencil, #text, #line, #dash").click(function() {
+        lastX = null;
+        lastY = null;
+        lastXX = null;
+        lastYY = null;
+        $("#textForm").hide();
         $('#tack').hide();
+        $('#tack').css('left', '');
+        $('#tack').css('top', '');
         $(".objet, .terrain").removeClass('active');
     });
 
@@ -207,7 +217,6 @@ $(function() {
 
         function traceLine(e) {
             if (canvas.isDrawing) {
-
                 var diametre = parseInt($("#diametre").val());
                 if (isNaN(diametre)) {
                     diametre = 50;
@@ -221,9 +230,12 @@ $(function() {
                 var fillColor = '#' + color;
                 ctx.beginPath();
                 ctx.strokeStyle = fillColor;
+                ctx.setLineDash([diametre, 0]);
                 ctx.lineWidth = diametre;
                 ctx.lineJoin = "round";
-                ctx.moveTo(lastX, lastY);
+                if (lastX !== null && lastY !== null) {
+                    ctx.moveTo(lastX, lastY);
+                }
                 ctx.lineTo(x, y);
                 ctx.closePath();
                 ctx.stroke();
@@ -248,7 +260,9 @@ $(function() {
                 ctx.beginPath();
                 ctx.strokeStyle = fillColor;
                 ctx.setLineDash([10, 15]);
-                ctx.moveTo(lastXX, lastYY);
+                if (lastXX !== null && lastYY !== null) {
+                    ctx.moveTo(lastXX, lastYY);
+                }
                 ctx.lineTo(x, y);
                 ctx.closePath();
                 ctx.stroke();

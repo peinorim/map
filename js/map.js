@@ -70,6 +70,7 @@ $(function() {
         $('canvas[data-layer="' + num_layer + '"]').remove();
         $('.layers li:first').addClass('active');
         layer_active = parseInt($('.layers li.active').children(':first').attr('data-layer'));
+        $('canvas[data-layer="' + layer_active + '"]').css('z-index',layer_active);
         return false;
     });
 

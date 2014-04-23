@@ -9,6 +9,8 @@ $(function() {
     var bIsControlKeyActived = false;
     var current_layer = 0;
     var layer_active = 0;
+    var width = document.getElementById("canvas").offsetWidth - 15;
+    var height = document.getElementById("canvas").offsetWidth;
 
     $('#colorpickerField1').ColorPicker({
         onSubmit: function(hsb, hex, rgb, el) {
@@ -93,6 +95,25 @@ $(function() {
         $('#textForm').css('z-index', -1);
         $('#tack').css('z-index', -1);
         $('canvas[data-layer="' + layer_active + '"]').css('z-index', layer_active);
+    });
+
+    $('#export').click(function() {
+        $('#exportContainer').children().remove();
+        var x = document.getElementById("canvas").getElementsByTagName("canvas");
+        var canvas = createCanvas(document.getElementById('exportContainer'), width, height);
+        canvas.context.fillStyle = '#ffffff';
+        canvas.context.fillRect(0, 0, width, height);
+        //canvas.context.clearRect(0, 0, canvas.node.width, canvas.node.height);
+        for (key in x) {
+            if (typeof x[key] === 'object') {
+                canvas.context.drawImage(x[key].getContext("2d").canvas, 0, 0);
+            }
+        }
+        var final = new Image();
+        final.src = canvas.context.canvas.toDataURL("image/png");
+        final.onload = function() {
+            window.open(canvas.node.toDataURL("image/png"),'_blank');
+        };
     });
 
     $("#textForm").draggable({containment: "parent"});
@@ -459,7 +480,7 @@ $(function() {
         return canvas;
     }
 
-    init(container, document.getElementById("canvas").offsetWidth - 15, document.getElementById("canvas").offsetWidth, '#ffffff');
+    init(container, width, height, '#ffffff');
 });
 
 

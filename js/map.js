@@ -70,7 +70,7 @@ $(function() {
         $('canvas[data-layer="' + num_layer + '"]').remove();
         $('.layers li:first').addClass('active');
         layer_active = parseInt($('.layers li.active').children(':first').attr('data-layer'));
-        $('canvas[data-layer="' + layer_active + '"]').css('z-index',layer_active);
+        $('canvas[data-layer="' + layer_active + '"]').css('z-index', layer_active);
         return false;
     });
 
@@ -112,9 +112,7 @@ $(function() {
         }
         var final = new Image();
         final.src = canvas.context.canvas.toDataURL("image/png");
-        final.onload = function() {
-            window.open(canvas.node.toDataURL("image/png"),'_blank');
-        };
+        window.open(canvas.node.toDataURL("image/png"), '_blank');
     });
 
     $("#textForm").draggable({containment: "parent"});

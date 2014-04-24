@@ -358,7 +358,9 @@ $(function() {
         }
     }
 
-    $(document).on('mousemove', 'canvas', function(e) {
+    $(document).on('vmousemove', 'canvas', function(e) {
+        e.preventDefault();
+
         var eraser = false;
         var pencil = false;
         if ($("#eraser").hasClass('active')) {
@@ -380,7 +382,7 @@ $(function() {
         }
     });
 
-   $(document).on('mouseover', 'canvas', function(e) {
+    $(document).on('vmouseover', 'canvas', function(e) {
         if ($("#line").hasClass('active') || $("#dash").hasClass('active')) {
             $('canvas').css('cursor', 'url("img/field_objects/thumbtack.png")' + 0 + ' ' + 20 + ', pointer');
         } else {
@@ -394,7 +396,9 @@ $(function() {
 
     });
 
-    $(document).on('mousedown', 'canvas', function(e) {
+    $(document).on('vmousedown', 'canvas', function(e) {
+        lastX = e.pageX - $("#canvas").position().left;
+        lastY = e.pageY - $("#canvas").position().top;
         if (e.which === 3) {
             return;
         }
@@ -431,7 +435,7 @@ $(function() {
         }
     });
 
-    $(document).on('mouseup', 'canvas', function(e) {
+    $(document).on('vmouseup', 'canvas', function(e) {
         isDrawing = false;
         cPush();
     });

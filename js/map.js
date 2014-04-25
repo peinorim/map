@@ -4,6 +4,7 @@ $(function() {
     var lastX, lastY, lastXX, lastYY, canvas, ctx;
     var isDrawing = false;
     var cPushArray = new Array();
+    var cStepArray = new Array();
     var cStep = -1;
     var arrShortCut = [{name: 'ctrly', key: 89}, {name: 'ctrlz', key: 90}];
     var iShortCutControlKey = 17; // CTRL;
@@ -58,10 +59,10 @@ $(function() {
 
     $("#add_layer").click(function() {
         $('.layers').prepend('<li><a data-layer="' + current_layer + '" href="#"><i style="padding: 6px 0px;color:black;" class="fa fa-eye fa-lg pull-left hideLayer"></i> Calque ' + current_layer + ' <i style="padding: 6px 12px;" class="fa fa-times fa-lg pull-right removeLayer"></i></a></li>');
-        init(container, $('canvas:first').width(), $('canvas:first').height(), '#ffffff');
         $('.layers li').removeClass('active');
         $('.layers li:first').addClass('active');
         layer_active = $('.layers li.active').children(':first').attr('data-layer');
+        init(container, $('canvas:first').width(), $('canvas:first').height(), '#ffffff');
         canvas = $('canvas[data-layer="' + layer_active + '"]')[0];
         ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -167,7 +168,7 @@ $(function() {
     function init(container, width, height, fillColor) {
 
         var can = createCanvas(container, width, height);
-        canvas = $(can.node);
+        canvas = $(can.node)[0];
         ctx = can.context;
         ctx.clearTo = function(fillColor) {
             w = width || document.getElementById("canvas").offsetWidth;
@@ -189,8 +190,8 @@ $(function() {
         ctx.clearTo(fillColor || "#ffffff");
 
         cPush();
-        canvas.css('z-index', current_layer);
-        canvas.attr('data-layer', current_layer);
+        $(can.node).css('z-index', current_layer);
+        $(can.node).attr('data-layer', current_layer);
         current_layer++;
         return canvas;
     }
@@ -382,7 +383,7 @@ $(function() {
         }
     });
 
-    $(document).on('vmouseover', 'canvas', function(e) {
+    $(document).on('mouseover', 'canvas', function(e) {
         if ($("#line").hasClass('active') || $("#dash").hasClass('active')) {
             $('canvas').css('cursor', 'url("img/field_objects/thumbtack.png")' + 0 + ' ' + 20 + ', pointer');
         } else {
@@ -461,14 +462,18 @@ $(function() {
     });
 
     function cPush() {
-        cStep++;
+        if (typeof cStepArray[layer_active] === 'undefined') {
+            cStepArray[layer_active] = new Array();
+        }
+        cStep = cStepArray[layer_active].length;
+        cStepArray[layer_active][cStep] = cStep;
         if (typeof cPushArray[layer_active] === 'undefined') {
             cPushArray[layer_active] = new Array();
         }
-        if (cStep < cPushArray[layer_active].length) {
-            cPushArray[layer_active].length = cStep;
-        }
-        cPushArray[layer_active].push(canvas[0].toDataURL());
+        /*if (cStep < cPushArray[layer_active].length) {
+         cPushArray[layer_active].length = cStep;
+         }*/
+        cPushArray[layer_active][cStep] = canvas.toDataURL();
     }
     function cUndo() {
         if (cStep > 0) {
@@ -482,7 +487,7 @@ $(function() {
     }
     function cRedo() {
         if (cStep < cPushArray[layer_active].length - 1) {
-            cStep++;
+            cStep = cStepArray[layer_active][cStep + 1];
             var canvasPic = new Image();
             canvasPic.src = cPushArray[layer_active][cStep];
             canvasPic.onload = function() {

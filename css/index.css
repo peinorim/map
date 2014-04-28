@@ -37,3 +37,17 @@ canvas{
     position:absolute;
     width:400px;
 }
+.bucket {
+    background: url('../img/bucket.png') no-repeat;
+    background-position:center; 
+    background-color: #FFFFFF;
+    border-color: #CCCCCC;
+    color: #333333;
+}
+.bucket:hover, .bucket:focus, .bucket:active, .bucket.active {
+    background: url('../img/bucket.png') no-repeat;
+    background-position:center; 
+    background-color: #EBEBEB;
+    border-color: #ADADAD;
+    color: #333333;
+}

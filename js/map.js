@@ -220,8 +220,8 @@ $(function() {
             var cote = $(".objet.active").find("img").attr("height");
         } else {
             var diametre = parseInt($("#diametre").val());
-            if ($('#bucket').hasClass('active')) {
-                diametre = width*2;
+            if ($('#bucket').hasClass('active') && $(".objet").hasClass('active')) {
+                diametre = width * 2;
             }
             var terrain = $(".terrain.active").find("img").attr("src");
             var cote = diametre;

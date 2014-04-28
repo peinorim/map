@@ -323,6 +323,7 @@ $(function() {
             ctx.beginPath();
             ctx.strokeStyle = fillColor;
             ctx.setLineDash([10, 15]);
+            ctx.lineWidth = 1;
             if (lastXX !== null && lastYY !== null) {
                 ctx.moveTo(lastXX, lastYY);
             }
@@ -475,9 +476,6 @@ $(function() {
         if (typeof cPushArray[layer_active] === 'undefined') {
             cPushArray[layer_active] = new Array();
         }
-        /*if (cStep < cPushArray[layer_active].length) {
-         cPushArray[layer_active].length = cStep;
-         }*/
         cPushArray[layer_active][cStep] = canvas.toDataURL();
     }
     function cUndo() {
@@ -488,6 +486,8 @@ $(function() {
             canvasPic.onload = function() {
                 ctx.drawImage(canvasPic, 0, 0);
             };
+        } else if (cStep === 0 && layer_active > 0) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     }
     function cRedo() {

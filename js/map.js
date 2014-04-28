@@ -398,10 +398,15 @@ $(function() {
     });
 
     $(document).on('vmousedown', 'canvas', function(e) {
-        lastX = e.pageX - $("#canvas").position().left;
-        lastY = e.pageY - $("#canvas").position().top;
+
         if (e.which === 3) {
             return;
+        }
+        if (lastX === null) {
+            lastX = e.pageX - $("#canvas").position().left;
+        }
+        if (lastY === null) {
+            lastY = e.pageY - $("#canvas").position().top;
         }
         isDrawing = true;
         var eraser = false;

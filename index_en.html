@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
     <head>
-        <title>Générateur de cartes 2D</title>
+        <title>2D RPG map generator</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="icon" type="image/png" href="img/favicon.png">
@@ -28,60 +28,60 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="#" class="navbar-brand">Générateur de cartes 2D</a>
+                    <a href="#" class="navbar-brand">2D map generator</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                     <form class="navbar-form form-inline">
                         <div class="btn-group">
                             <div style="cursor: pointer;" data-toggle="dropdown">
-                                <img src="img/fr.png" alt="fr" title="French version" width="24" height="24"/><span class="caret" style="color: #FFFFFF;"></span>
+                                <img src="img/en.png" alt="en" title="English version" width="24" height="24"/><span class="caret" style="color: #FFFFFF;"></span>
                             </div>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="index_en.html"><img src="img/en.png" alt="en" title="English version" width="24" height="24"/></a></li>
+                                <li><a href="index.html"><img src="img/fr.png" alt="fr" title="French version" width="24" height="24"/></a></li>
                             </ul>
                         </div>
                         <span class="divider-vertical"></span>
                         <div class="btn-group" data-toggle="buttons">
-                            <label id="carre" class="btn btn-default active" title="Forme carrée">
+                            <label id="carre" class="btn btn-default active" title="Square shape">
                                 <input type="radio" name="types"><i class="fa fa-square-o"></i>
                             </label>
-                            <label id="rond" class="btn btn-default" title="Forme circulaire">
+                            <label id="rond" class="btn btn-default" title="Round shape">
                                 <input type="radio" name="types"><i class="fa fa-circle-o"></i>
                             </label>
                         </div>
-                        <input type="number" class="form-control" id="diametre" value="50" style="width:75px;" placeholder="Diamètre">
+                        <input type="number" class="form-control" id="diametre" value="50" style="width:75px;" placeholder="Diameter">
                         <div class="form-group has-success has-feedback">
                             <input type="text" class="form-control" id="colorpickerField1" value="000000" style="width:120px;">
                             <i class="fa fa-square form-control-feedback" style="color:#000000;"></i>
                         </div>
                         <span class="divider-vertical"></span>
                         <div class="btn-group" data-toggle="buttons">
-                            <label id="text" class="btn btn-default" title="Texte">
+                            <label id="text" class="btn btn-default" title="Text">
                                 <input type="radio" name="brushes">T
                             </label>
-                            <label id="pencil" class="btn btn-default active" title="Crayons">
+                            <label id="pencil" class="btn btn-default active" title="Pencils">
                                 <input type="radio" name="brushes"><i class="fa fa-pencil fa-lg"></i>
                             </label>
-                            <label id="line" class="btn btn-default" title="Ligne droite">
+                            <label id="line" class="btn btn-default" title="Straight line">
                                 <input type="radio" name="brushes"><i class="fa fa-minus fa-lg"></i>
                             </label>
-                            <label id="dash" class="btn btn-default" title="Pointillés">
+                            <label id="dash" class="btn btn-default" title="Dashes">
                                 <input type="radio" name="brushes"><i class="fa fa-ellipsis-h fa-lg"></i>
                             </label>
-                            <label id="bucket" class="btn btn-default bucket" title="Remplir">
+                            <label id="bucket" class="btn btn-default bucket" title="Fill">
                                 <input class="" type="radio" name="brushes">&nbsp;&nbsp;&nbsp;
                             </label>
-                            <label id="eraser" class="btn btn-danger" title="Gomme">
+                            <label id="eraser" class="btn btn-danger" title="Eraser">
                                 <input type="radio" name="brushes"><i class="fa fa-eraser fa-lg"></i>
                             </label>
                         </div>
                         <span class="divider-vertical"></span>
-                        <button id="undo" type="button" class="btn btn-primary" title="Précédent - Ctrl + Z"><i class="fa fa-undo"></i></button>
-                        <button id="redo" type="button" class="btn btn-primary" title="Suivant - Ctrl + Y"><i class="fa fa-repeat"></i></button>
+                        <button id="undo" type="button" class="btn btn-primary" title="Undo - Ctrl + Z"><i class="fa fa-undo"></i></button>
+                        <button id="redo" type="button" class="btn btn-primary" title="Redo - Ctrl + Y"><i class="fa fa-repeat"></i></button>
                         <span class="divider-vertical"></span>
-                        <button id="export" type="button" class="btn btn-success" title="Exporter l'image"><i class="fa fa-download"></i></button>
-                        <label id="reset" class="btn btn-danger pull-right" title="L'historique des modifications sera supprimé">
-                            <i class="fa fa-times fa-lg"></i> Tout effacer
+                        <button id="export" type="button" class="btn btn-success" title="Export image"><i class="fa fa-download"></i></button>
+                        <label id="reset" class="btn btn-danger pull-right" title="The modifications history will be cleared">
+                            <i class="fa fa-times fa-lg"></i> Erase all
                         </label>
                     </form>
                 </div>
@@ -97,7 +97,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    Objets
+                                    Objects
                                 </a>
                             </h4>
                         </div>
@@ -184,7 +184,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                    Terrains
+                                    Field textures
                                 </a>
                             </h4>
                         </div>
@@ -226,20 +226,20 @@
                     <div class="form-group">
                         <textarea id="textContent" class="form-control" style="width:200px;" placeholder="Votre texte"></textarea>
                     </div>
-                    <button id="validText" type="button" class="btn btn-success btn-sm">Valider</button>
-                    <button id="cancelText" type="button" class="btn btn-danger btn-sm">Annuler</button>
+                    <button id="validText" type="button" class="btn btn-success btn-sm">Validate</button>
+                    <button id="cancelText" type="button" class="btn btn-danger btn-sm">Cancel</button>
                 </form>
 
             </div>
             <div class="col-md-2">
                 <div class="panel panel-primary stick">
-                    <div class="panel-heading">Calques <i id="add_layer" class="btn fa fa-plus fa-lg"></i></div>
+                    <div class="panel-heading">Layers <i id="add_layer" class="btn fa fa-plus fa-lg"></i></div>
                     <div class="panel-body">
                         <ul class="nav nav-pills nav-stacked layers">
                             <li class="active">
                                 <a href="#" data-layer="0">
                                     <i style="padding: 5px 0px 0px;color:black;" class="fa fa-eye fa-lg pull-left hideLayer"></i> 
-                                    Fond 
+                                    Background 
                                     <i style="padding: 6px 12px;" class="fa fa-lock fa-lg pull-right"></i>
                                 </a>
                             </li>

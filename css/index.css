@@ -51,3 +51,6 @@ canvas{
     border-color: #ADADAD;
     color: #333333;
 }
+.dropdown-menu{
+    min-width: 20px;
+}

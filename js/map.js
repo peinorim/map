@@ -238,12 +238,16 @@ $(function() {
         var img = new Image();
         img.src = terrain;
         if (carre === true && !$(".objet").hasClass('active')) {
-            var pFill = ctx.createPattern(img, "repeat");
-            ctx.fillStyle = pFill;
-            ctx.fillRect(x, y, diametre, diametre);
+            img.onload = function() {
+                ctx.fillStyle = ctx.createPattern(img, "repeat");
+                ctx.fillRect(x, y, diametre, diametre);
+            };
         } else if ($(".objet").hasClass('active')) {
-            ctx.drawImage(img, x + diametre / 2, y + cote / 2, diametre, cote);
+            img.onload = function() {
+                ctx.drawImage(img, x + diametre / 2, y + cote / 2, diametre, cote);
+            };
         } else {
+            img.src = terrain;
             var pFill = ctx.createPattern(img, "repeat");
             ctx.fillStyle = pFill;
             ctx.fillCircle(x + diametre / 2, y + cote / 2, diametre / 2, pFill);

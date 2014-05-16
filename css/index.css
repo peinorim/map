@@ -54,3 +54,6 @@ canvas{
 .dropdown-menu{
     min-width: 20px;
 }
+.modal-dialog {
+    width: 50%;
+}

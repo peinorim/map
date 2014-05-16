@@ -152,17 +152,7 @@ $(function() {
         isDrawing = false;
         $("#textForm").hide();
         $('#textContent').val('');
-    });
-    
-    $("#sendUpload").click(function() {
-        if($("#objectToUp")[0].files[0].size > 100000){
-            $("#alertUp").addClass('alert-danger');
-        } else {
-            $("#alertUp").removeClass('alert-danger');
-            //$('#myModal').modal('hide');
-        }
-    });
-    
+    });    
 
     $("#textForm").draggable({containment: "parent"});
     canvas = init(container, width, height, '#ffffff');

@@ -279,7 +279,7 @@
                 <h4 class="modal-title" id="myModalLabel">Importer des images</h4>
               </div>
               <div class="modal-body">
-                    <div id="alertUp" class="alert alert-info">Taille maximale d'envoi: 100 ko</div>
+                  <div id="alertUp" class="alert alert-info"><ul><li>Formats supportés: jpeg, png, gif</li><li>Taille maximale d'envoi: 100 ko</li></ul></div>
                      <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
                         <!-- Redirect browsers with JavaScript disabled to the origin page -->
                         <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
@@ -410,6 +410,7 @@
         <script src="js/jquery.fileupload.js"></script>
         <!-- The File Upload processing plugin -->
         <script src="js/jquery.fileupload-process.js"></script>
+        <script src="js/jquery.fileupload-validate.js"></script>
         <!-- The File Upload image preview & resize plugin -->
         <script src="js/jquery.fileupload-image.js"></script>
         <!-- The File Upload user interface plugin -->

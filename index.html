@@ -37,12 +37,10 @@
                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                     <form class="navbar-form form-inline">
                         <div class="btn-group">
-                            <div style="cursor: pointer;" data-toggle="dropdown">
-                                <img src="img/fr.png" alt="fr" title="French version" width="24" height="24"/><span class="caret" style="color: #FFFFFF;"></span>
+                            <div style="cursor: pointer;">
+                                <a href="#"><img src="img/fr.png" alt="en" title="French version" width="24" height="24"/></a>
+                                <a href="index_en.html"><img src="img/en.png" alt="en" title="English version" width="24" height="24"/></a>
                             </div>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="index_en.html"><img src="img/en.png" alt="en" title="English version" width="24" height="24"/></a></li>
-                            </ul>
                         </div>
                         <span class="divider-vertical"></span>
                         <div class="btn-group" data-toggle="buttons">
@@ -321,20 +319,20 @@
                     <strong class="error text-danger"></strong>
                 </td>
                 <td class="col-md-3">
-                    <p class="size">Processing...</p>
+                    <p class="size">En cours...</p>
                     <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
                 </td>
                 <td class="col-md-3">
                     {% if (!i && !o.options.autoUpload) { %}
                         <button class="btn btn-primary start" disabled>
                             <i class="glyphicon glyphicon-upload"></i>
-                            <span>Start</span>
+                            <span>Envoyer</span>
                         </button>
                     {% } %}
                     {% if (!i) { %}
                         <button class="btn btn-warning cancel">
                             <i class="glyphicon glyphicon-ban-circle"></i>
-                            <span>Cancel</span>
+                            <span>Annuler</span>
                         </button>
                     {% } %}
                 </td>
@@ -360,7 +358,7 @@
                         {% } %}
                     </p>
                     {% if (file.error) { %}
-                        <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                        <div><span class="label label-danger">Erreur</span> {%=file.error%}</div>
                     {% } %}
                 </td>
                 <td>
@@ -370,13 +368,13 @@
                     {% if (file.deleteUrl) { %}
                         <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                             <i class="glyphicon glyphicon-trash"></i>
-                            <span>Delete</span>
+                            <span>Supprimer</span>
                         </button>
                         <input type="checkbox" name="delete" value="1" class="toggle">
                     {% } else { %}
                         <button class="btn btn-warning cancel">
                             <i class="glyphicon glyphicon-ban-circle"></i>
-                            <span>Cancel</span>
+                            <span>Annuler</span>
                         </button>
                     {% } %}
                 </td>

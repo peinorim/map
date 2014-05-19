@@ -36,8 +36,8 @@ $(function() {
         $("#canvas").children().remove();
         init(container, document.getElementById("canvas").offsetWidth - 15, document.getElementById("canvas").offsetWidth, '#ffffff');
     });
-
-    $(".terrain, .objet").click(function() {
+    
+    $(document).on('click', '.terrain, .objet', function() {
         $("#textForm").hide();
         $('#tack').hide();
         $('#tack').css('left', '');

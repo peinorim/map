@@ -297,6 +297,9 @@ class UploadHandler {
                     $this->get_upload_path($file_name)
             );
             $file->url = $this->get_download_url($file->name);
+            list($width, $height) = getimagesize($file->url);
+            $file->width = $width;
+            $file->height = $height;
             foreach ($this->options['image_versions'] as $version => $options) {
                 if (!empty($version)) {
                     if (is_file($this->get_upload_path($file_name, $version))) {

@@ -37,8 +37,8 @@ $(function() {
         $(".files").html('');
         $(this).fileupload('option', 'done')
                 .call(this, $.Event('done'), {result: result});
-        for(var key in result.files){
-            $('#collapseOne').children().children().prepend('<label class="objet btn btn-default"><input type="radio" name="objets"><img alt="rocks" src="'+result.files[key].url+'" width="93" height="75" class="img-rounded"/></label>');
+        for (var key in result.files) {
+            $('#collapseOne').children().children().prepend('<label class="objet btn btn-default"><input type="radio" name="objets"><img alt="" src="' + result.files[key].url + '" width="' + result.files[key].width + '" height="' + result.files[key].height + '" class="img-rounded"/></label>');
         }
     });
 

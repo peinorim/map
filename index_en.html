@@ -38,7 +38,7 @@
                     <form class="navbar-form form-inline">
                         <div class="btn-group">
                             <div style="cursor: pointer;">
-                                <a href="#"><img src="img/fr.png" alt="en" title="French version" width="24" height="24"/></a>
+                                <a href="index.html"><img src="img/fr.png" alt="en" title="French version" width="24" height="24"/></a>
                                 <a href="index_en.html"><img src="img/en.png" alt="en" title="English version" width="24" height="24"/></a>
                             </div>
                         </div>
@@ -274,7 +274,13 @@
                 <h4 class="modal-title" id="myModalLabel">Upload pictures</h4>
               </div>
               <div class="modal-body">
-                  <div id="alertUp" class="alert alert-info"><ul><li>Accepted formats: jpeg, png, gif</li><li>Maximum upload size: 100 ko</li></ul></div>
+                  <div id="alertUp" class="alert alert-info">
+                      <ul>
+                          <li>Accepted formats: jpeg, png, gif</li>
+                          <li>Maximum upload size: 100 ko</li>
+                          <li>Uploaded pictures are located in the "objects" section.</li>
+                      </ul>
+                  </div>
                      <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
                         <!-- Redirect browsers with JavaScript disabled to the origin page -->
                         <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>

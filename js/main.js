@@ -21,9 +21,7 @@ $(function() {
         url: 'server/php/',
         maxFileSize: 100000,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png|bmp)$/i
-    }).bind('fileuploaddone', function(e, result) {
-        getDlFiles();
-    });
+    }).bind('fileuploaddone fileuploaddestroy', getDlFiles); 
 
     // Load existing files:
     $('#fileupload').addClass('fileupload-processing');
@@ -40,10 +38,11 @@ $(function() {
             $(this).removeClass('fileupload-processing');
         }).done(function(result) {
             $(".files").html('');
+            $(".added").remove();
             $(this).fileupload('option', 'done')
-                    .call(this, $.Event('done'), {result: result});
+                    .call(this, $.Event('done'), {result: result});   
             for (var key in result.files) {
-                $('#collapseOne').children().children().prepend('<label class="objet btn btn-default"><input type="radio" name="objets"><img alt="' + result.files[key].name + '" src="' + result.files[key].url + '" width="' + result.files[key].width + '" height="' + result.files[key].height + '" class="img-rounded"/></label>');
+                $('#collapseOne').children().children().prepend('<label class="objet added btn btn-default"><input type="radio" name="objets"><img alt="' + result.files[key].name + '" src="' + result.files[key].url + '" width="' + result.files[key].width + '" height="' + result.files[key].height + '" class="img-rounded"/></label>');
             }
         });
     }
